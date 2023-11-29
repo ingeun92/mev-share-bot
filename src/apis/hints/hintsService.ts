@@ -11,7 +11,7 @@ export const getHints = async (res: Response): Promise<any> => {
   es.addEventListener("message", (event) => {
     // console.log("Event: ", event.data);
     const data = JSON.parse(event.data);
-    Logger.info(data.logs);
+    Logger.info(data);
 
     if (data.logs) {
       res.write(`data: ${event.data}\n\n`);
