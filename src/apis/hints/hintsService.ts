@@ -9,8 +9,14 @@ import { Response } from "express";
 export const getHints = async (res: Response): Promise<any> => {
   const es = new EventSource("https://mev-share.flashbots.net/");
   es.addEventListener("message", (event) => {
-    console.log("Event: ", event.data);
-    res.write(`data: ${event.data}\n\n`);
+    // console.log("Event: ", event.data);
+    const data = JSON.parse(event.data);
+    Logger.info(data.logs);
+
+    if (data.logs) {
+      res.write(`data: ${event.data}\n\n`);
+    }
+    // res.write(`data: ${event.data}\n\n`);
   });
 
   process.on("SIGTERM", () => {
